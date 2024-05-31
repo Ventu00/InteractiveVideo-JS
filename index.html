@@ -1,11 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video with Interactive Divs</title>
+  <style>
+    
+    .interactiveDiv {
+      display: none; 
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      margin-top: 40px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 38px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      width: 550px;
+    }
+    #videoContainer {
+      position: relative;
+      display: inline-block;
+      width: 940px;
+      height: 660px;
+    }
+    #interactiveDiv1 { top: 100px; }
+    #interactiveDiv2 { top: 200px; }
+    #interactiveDiv3 { top: 300px; }
+    #interactiveDiv4 { top: 430px; }
+    #creditDiv {
+      display: none; 
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+    #indexDiv {
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    
+  <div id="videoContainer">
+    <video id="myVideo" width="940" height="660" controls>
+      <source src="interactm.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div id="interactiveDiv1" class="interactiveDiv">¿Qué es un video interactivo?</div>
+    <div id="interactiveDiv2" class="interactiveDiv">¿Para qué se puede usar?</div>
+    <div id="interactiveDiv3" class="interactiveDiv">Ventajas</div>
+    <div id="interactiveDiv4" class="interactiveDiv">Desventajas</div>
+    <div id="creditDiv" class="interactiveDiv">Hecho por Àlex Ventura</div>
+    <div id="indexDiv">Ir al índice</div>
+  </div>
+
+  <script>
+    const video = document.getElementById('myVideo');
+    const interactiveDivs = document.querySelectorAll('.interactiveDiv');
+    const creditDiv = document.getElementById('creditDiv');
+    const indexDiv = document.getElementById('indexDiv');
+
+  // Controla la visibilidad de los divs interactivos entre el segundo 15 y el segundo 37
+    video.addEventListener('timeupdate', function() {
+      if (video.currentTime >= 15 && video.currentTime < 37) {
+        interactiveDivs.forEach(div => div.style.display = 'block');
+      } else {
+        interactiveDivs.forEach(div => div.style.display = 'none');
+      }
+      //visivilidad del boton final
+      if (video.currentTime >= 134 && video.currentTime < 164) {
+        creditDiv.style.display = 'block';
+      } else {
+        creditDiv.style.display = 'none';
+      }
+    });
+
+    document.getElementById('interactiveDiv1').addEventListener('click', function() {
+      video.currentTime = 40;
+    });
+    document.getElementById('interactiveDiv2').addEventListener('click', function() {
+      video.currentTime = 55;
+    });
+    document.getElementById('interactiveDiv3').addEventListener('click', function() {
+      video.currentTime = 78;
+    });
+    document.getElementById('interactiveDiv4').addEventListener('click', function() {
+      video.currentTime = 95;
+    });
+
+    creditDiv.addEventListener('click', function() {
+      window.open('https://www.linkedin.com/in/%C3%A0lex-ventura-vilalta-491607271/', '_blank');
+    });
+
+    indexDiv.addEventListener('click', function() {
+      video.currentTime = 15;
+    });
+  </script>
 </body>
 </html>
